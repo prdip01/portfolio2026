@@ -193,7 +193,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="font-display font-extrabold leading-[0.88] tracking-tight
-                text-[clamp(3.8rem,10vw,8.5rem)] text-inkPrimary"
+                text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] text-inkPrimary"
             >
               Pradeep
               <br />
@@ -290,7 +290,7 @@ export default function App() {
             className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
             {/* Left: Photo + Pull quote */}
-            <div className="lg:col-span-5 flex flex-col items-start gap-8">
+            <div className="lg:col-span-5 flex flex-col items-center lg:items-start gap-8">
               {/* Circular photo avatar */}
               <div className="relative">
                 <div className="w-44 h-44 md:w-52 md:h-52 rounded-full overflow-hidden
@@ -309,7 +309,7 @@ export default function App() {
               </div>
 
               <blockquote className="font-display font-bold text-2xl md:text-3xl
-                text-inkPrimary leading-tight tracking-tight">
+                text-inkPrimary leading-tight tracking-tight text-center lg:text-left">
                 "Building at the intersection of deep learning and{' '}
                 <span className="text-brandMagenta">human-centric design.</span>"
               </blockquote>
@@ -330,7 +330,7 @@ export default function App() {
               </p>
 
               {/* Stats — no CGPA */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-pinkBorder">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-8 border-t border-pinkBorder">
                 {[
                   ['03',   'Projects'],
                   ['02',   'Internships'],
@@ -340,7 +340,7 @@ export default function App() {
                     <div className="font-display font-extrabold text-3xl text-brandMagenta">
                       {num}
                     </div>
-                    <div className="font-mono text-[10px] text-inkMuted tracking-widest mt-1 uppercase">
+                    <div className="font-mono text-[9px] sm:text-[10px] text-inkMuted tracking-widest mt-1 uppercase">
                       {label}
                     </div>
                   </div>
@@ -391,9 +391,12 @@ export default function App() {
             <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-pinkLight to-transparent z-10" />
             <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-pinkLight to-transparent z-10" />
             <div className="animate-marquee whitespace-nowrap flex gap-6">
-              {['Python','SQL','HTML/CSS','JavaScript','React','MySQL','MongoDB',
+              {[
+                'Python','SQL','HTML/CSS','JavaScript','React','MySQL','MongoDB',
                 'Git','VS Code','Power BI','Data Science','DSA','OOPs','REST APIs',
-                'Python','SQL','HTML/CSS','JavaScript','React','MySQL',].map((s, i) => (
+                'Python','SQL','HTML/CSS','JavaScript','React','MySQL','MongoDB',
+                'Git','VS Code','Power BI','Data Science','DSA','OOPs','REST APIs'
+              ].map((s, i) => (
                 <span key={i} className="font-display font-semibold text-sm text-inkSecondary
                   flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-brandMagenta/50" />
@@ -440,8 +443,8 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center md:w-44 flex-shrink-0
-                  bg-pinkSurface rounded-md p-6 space-y-3">
+                <div className="flex flex-row md:flex-col items-center justify-between md:justify-center md:w-44 flex-shrink-0
+                  bg-pinkSurface rounded-md p-4 md:p-6 space-y-0 md:space-y-3 gap-3 md:gap-0">
                   <Cpu size={36} className="text-brandMagenta opacity-60" />
                   <a href="https://github.com/prdip01/dermadrishti" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 font-mono text-[11px]
@@ -564,8 +567,9 @@ export default function App() {
         <section id="education" className="py-24 border-t border-pinkBorder/50">
           <SectionLabel index={5} title="Education" />
 
+          {/* Desktop view — table */}
           <motion.div {...reveal}
-            className="overflow-x-auto no-scrollbar rounded-sm border border-pinkBorder">
+            className="hidden md:block overflow-x-auto no-scrollbar rounded-sm border border-pinkBorder">
             <table className="w-full text-left text-sm min-w-[500px] bg-white/50">
               <thead className="border-b border-pinkBorder bg-pinkSurface/60">
                 <tr className="font-mono text-[10px] text-inkMuted tracking-[0.18em] uppercase">
@@ -592,6 +596,25 @@ export default function App() {
                 </tr>
               </tbody>
             </table>
+          </motion.div>
+
+          {/* Mobile view — stacked cards */}
+          <motion.div {...reveal} className="block md:hidden space-y-4">
+            <div className="bg-white/60 backdrop-blur-sm border border-pinkBorder rounded-lg p-6 space-y-4 shadow-sm">
+              <div>
+                <span className="font-mono text-[10px] text-brandMagenta tracking-widest uppercase">2022 – 2026</span>
+                <h3 className="font-display font-bold text-inkPrimary text-lg mt-1 leading-snug">
+                  B.Tech — Computer Science &amp; Engineering
+                </h3>
+                <p className="font-mono text-[10px] text-brandMagenta mt-2 leading-relaxed">
+                  DSA · AI · ML · OS · Computer Graphics · Compiler Design
+                </p>
+              </div>
+              <div className="pt-4 border-t border-pinkBorder/50 text-inkSecondary text-sm">
+                <p className="font-semibold text-inkPrimary">Government Engineering College (GEC) Palamu</p>
+                <p className="font-mono text-[10px] text-inkMuted mt-1">JUT (Jharkhand University of Technology)</p>
+              </div>
+            </div>
           </motion.div>
         </section>
 
