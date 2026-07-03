@@ -10,9 +10,9 @@ import portfolioData from './data.json';
 
 /* ─── Animation presets ─────────────────────────────────── */
 const fadeUp = {
-  initial:    { opacity: 0, y: 30 },
-  whileInView:{ opacity: 1, y:  0 },
-  viewport:   { once: true, margin: '-60px' },
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
   transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
 };
 const fadeIn = { ...fadeUp, initial: { opacity: 0, y: 0 } };
@@ -27,13 +27,13 @@ const DEFAULT_PROJECTS = portfolioData.projects;
 const DEFAULT_RESEARCH = portfolioData.research;
 
 const SKILLS = [
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',        label: 'Python' },
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg',         label: 'Data Science' },
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',           label: 'Web Dev' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'Python' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg', label: 'Data Science' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', label: 'Web Dev' },
   { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg', label: 'Machine Learning' },
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',           label: 'SQL' },
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',           label: 'React' },
-  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',              label: 'Git & GitHub' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', label: 'SQL' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', label: 'React' },
+  { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', label: 'Git & GitHub' },
   { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', label: 'JavaScript' },
 ];
 
@@ -115,7 +115,7 @@ export default function App() {
     document.documentElement.classList.toggle('light', isLight);
     try {
       localStorage.setItem('prdip_theme', isLight ? 'light' : 'dark');
-    } catch {}
+    } catch { }
   }, [isLight]);
 
   /* ── Save content states to localStorage & Disk ── */
@@ -132,17 +132,17 @@ export default function App() {
   };
 
   useEffect(() => {
-    try { localStorage.setItem('prdip_profile', JSON.stringify(profile)); } catch {}
+    try { localStorage.setItem('prdip_profile', JSON.stringify(profile)); } catch { }
     saveToDisk({ profile, projects: liveProjects, research });
   }, [profile]);
 
   useEffect(() => {
-    try { localStorage.setItem('prdip_live_projects', JSON.stringify(liveProjects)); } catch {}
+    try { localStorage.setItem('prdip_live_projects', JSON.stringify(liveProjects)); } catch { }
     saveToDisk({ profile, projects: liveProjects, research });
   }, [liveProjects]);
 
   useEffect(() => {
-    try { localStorage.setItem('prdip_research', JSON.stringify(research)); } catch {}
+    try { localStorage.setItem('prdip_research', JSON.stringify(research)); } catch { }
     saveToDisk({ profile, projects: liveProjects, research });
   }, [research]);
 
@@ -220,16 +220,16 @@ export default function App() {
   };
 
   const navLinks = [
-    { label: 'About',    href: '#about' },
-    { label: 'Skills',   href: '#skills' },
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
     { label: 'Research', href: '#research' },
     { label: 'Projects', href: '#live-projects' },
-    { label: 'Contact',  href: '#contact' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   return (
     <div className="relative min-h-screen bg-bgBase text-textPrimary font-sans overflow-x-hidden transition-colors duration-300">
-      
+
       {/* ── Background glows ── */}
       <div aria-hidden className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
         <div className="glow-blob w-[600px] h-[600px] bg-accent/8 -top-32 -left-32" />
@@ -246,7 +246,7 @@ export default function App() {
 
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div 
+            <div
               onClick={(e) => {
                 if (heartBroken) return;
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -257,11 +257,11 @@ export default function App() {
             >
               {!heartBroken ? (
                 <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E] hover:scale-110 active:scale-95 transition-transform duration-200">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               ) : (
                 <svg viewBox="0 0 24 24" className="w-9 h-9 stroke-[#F43F5E]/25 fill-none stroke-2 stroke-dasharray-[4,4] opacity-50">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               )}
             </div>
@@ -391,9 +391,9 @@ export default function App() {
               <motion.div {...fadeUp} transition={{ delay: 0.35 }}
                 className="flex items-center gap-4 pt-2">
                 {[
-                  { href: profile.github,    icon: <Github   size={18} />, label: 'GitHub' },
-                  { href: profile.linkedin,  icon: <Linkedin size={18} />, label: 'LinkedIn' },
-                  { href: `mailto:${profile.email}`, icon: <Mail     size={18} />, label: 'Email' },
+                  { href: profile.github, icon: <Github size={18} />, label: 'GitHub' },
+                  { href: profile.linkedin, icon: <Linkedin size={18} />, label: 'LinkedIn' },
+                  { href: `mailto:${profile.email}`, icon: <Mail size={18} />, label: 'Email' },
                 ].map(s => (
                   <a key={s.label} href={s.href}
                     target={s.href.startsWith('mailto') ? undefined : '_blank'}
@@ -531,10 +531,10 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               {[
-                { icon: <Code  size={18} />, title: 'Clean Code',     desc: 'Maintainable & scalable.' },
-                { icon: <Zap   size={18} />, title: 'Problem Solver',  desc: 'Love real-world challenges.' },
-                { icon: <Brain size={18} />, title: 'Quick Learner',   desc: 'Always learning new tech.' },
-                { icon: <Users size={18} />, title: 'Team Player',     desc: 'Collaborative and open.' },
+                { icon: <Code size={18} />, title: 'Clean Code', desc: 'Maintainable & scalable.' },
+                { icon: <Zap size={18} />, title: 'Problem Solver', desc: 'Love real-world challenges.' },
+                { icon: <Brain size={18} />, title: 'Quick Learner', desc: 'Always learning new tech.' },
+                { icon: <Users size={18} />, title: 'Team Player', desc: 'Collaborative and open.' },
               ].map(t => (
                 <motion.div key={t.title} {...fadeUp} className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-accentMuted flex items-center justify-center
@@ -560,13 +560,12 @@ export default function App() {
                 <span className="section-dot">About Me</span>
                 <h2 className="text-2xl sm:text-3xl font-bold">Building things that matter</h2>
                 <p className="text-textSecondary text-sm sm:text-base leading-relaxed max-w-xl">
-                  B.Tech Computer Science student at GEC Palamu (JUT). Specialised in
+                  B.Tech in  Computer Science student . Specialised in
                   AI, Machine Learning pipelines, and full-stack web development.
-                  Based in Chas, Bokaro, Jharkhand.
                 </p>
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 shrink-0">
-                {[['04+','Live Apps'],['02','Internships'],['6 wk','ML Training']].map(([n, l]) => (
+                {[['10+', 'Live Apps'], ['02', 'Internships'], ['1', ' Ai & ML Training']].map(([n, l]) => (
                   <div key={l} className="glass-card rounded-xl p-4 text-center sm:text-left">
                     <div className="text-2xl font-bold text-accent">{n}</div>
                     <div className="text-textMuted text-[10px] tracking-widest uppercase mt-0.5">{l}</div>
@@ -637,7 +636,7 @@ export default function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.07 }}
                   className="bg-bgCard border border-borderColor/60 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-premium relative overflow-hidden transition-all duration-300 hover:border-borderColor hover:shadow-lg">
-                  
+
                   {/* Glow circle behind icon */}
                   <div className="absolute w-24 h-24 rounded-full blur-xl opacity-10 pointer-events-none"
                     style={{ background: proj.accent }} />
@@ -723,9 +722,9 @@ export default function App() {
 
               <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="space-y-4">
                 {[
-                  { href: `mailto:${profile.email}`, icon: <Mail       size={16} />, label: profile.email },
-                  { href: profile.github,           icon: <Github     size={16} />, label: profile.github.replace('https://', '') },
-                  { href: profile.linkedin,         icon: <Linkedin   size={16} />, label: profile.linkedin.replace('https://', '') },
+                  { href: `mailto:${profile.email}`, icon: <Mail size={16} />, label: profile.email },
+                  { href: profile.github, icon: <Github size={16} />, label: profile.github.replace('https://', '') },
+                  { href: profile.linkedin, icon: <Linkedin size={16} />, label: profile.linkedin.replace('https://', '') },
                 ].map(l => (
                   <a key={l.label} href={l.href}
                     target={l.href.startsWith('mailto') ? undefined : '_blank'}
@@ -773,7 +772,7 @@ export default function App() {
               className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden"
             >
               <div className="flex items-center justify-between px-5 py-3 border-b border-borderColor bg-bgSurface/40">
-                <div 
+                <div
                   onClick={() => {
                     setDecoyClicks(prev => {
                       const next = prev + 1;
@@ -938,307 +937,307 @@ export default function App() {
                 <div className="space-y-6">
                   {/* Admin Tabs */}
                   <div className="flex gap-1 p-1 bg-bgSurface rounded-xl">
-                      {[
-                        { id: 'profile', label: 'Profile', icon: <User size={14} /> },
-                        { id: 'projects', label: 'Projects', icon: <Globe size={14} /> },
-                        { id: 'research', label: 'Research', icon: <FlaskConical size={14} /> },
-                      ].map(t => (
-                        <button
-                          key={t.id}
-                          onClick={() => { setAdminTab(t.id); setAddMode(false); setEditingId(null); }}
-                          className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold rounded-lg transition-all
+                    {[
+                      { id: 'profile', label: 'Profile', icon: <User size={14} /> },
+                      { id: 'projects', label: 'Projects', icon: <Globe size={14} /> },
+                      { id: 'research', label: 'Research', icon: <FlaskConical size={14} /> },
+                    ].map(t => (
+                      <button
+                        key={t.id}
+                        onClick={() => { setAdminTab(t.id); setAddMode(false); setEditingId(null); }}
+                        className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold rounded-lg transition-all
                             ${adminTab === t.id ? 'bg-bgCard text-accent shadow-sm' : 'text-textSecondary hover:text-textPrimary'}`}>
-                          {t.icon}
-                          {t.label}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* ════ TAB: PROFILE ════ */}
-                    {adminTab === 'profile' && (
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4 bg-bgSurface p-4 rounded-xl">
-                          <div className="w-16 h-16 rounded-xl overflow-hidden border border-borderColor shrink-0">
-                            <img src={profile.photo} alt="Avatar" className="w-full h-full object-cover" />
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-sm text-textPrimary">{profile.name}</h4>
-                            <p className="text-xs text-textMuted">{profile.title}</p>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Full Name</label>
-                            <input value={profile.name} onChange={e => setProfile(p => ({ ...p, name: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Title / Role</label>
-                            <input value={profile.title} onChange={e => setProfile(p => ({ ...p, title: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Bio / Tagline</label>
-                          <textarea value={profile.bio} onChange={e => setProfile(p => ({ ...p, bio: e.target.value }))} rows={2}
-                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Photo Path / URL</label>
-                            <input value={profile.photo} onChange={e => setProfile(p => ({ ...p, photo: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Email Address</label>
-                            <input value={profile.email} onChange={e => setProfile(p => ({ ...p, email: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">GitHub Link</label>
-                            <input value={profile.github} onChange={e => setProfile(p => ({ ...p, github: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">LinkedIn Link</label>
-                            <input value={profile.linkedin} onChange={e => setProfile(p => ({ ...p, linkedin: e.target.value }))}
-                              className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* ════ TAB: PROJECTS ════ */}
-                    {adminTab === 'projects' && (
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono text-textMuted uppercase tracking-wider">
-                            {liveProjects.length} live project{liveProjects.length !== 1 ? 's' : ''}
-                          </span>
-                          {!addMode && (
-                            <button onClick={() => { setAddMode(true); setEditingId(null); }}
-                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-accent text-white rounded-lg hover:bg-accent-light transition-colors">
-                              <Plus size={12} /> Add Project
-                            </button>
-                          )}
-                        </div>
-
-                        {/* Add project form */}
-                        {addMode && (
-                          <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
-                            <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Project</h4>
-                            
-                            <div className="grid grid-cols-2 gap-3">
-                              <input value={newProj.name} onChange={e => setNewProj(pr => ({ ...pr, name: e.target.value }))} placeholder="Project Name"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                              <input value={newProj.url} onChange={e => setNewProj(pr => ({ ...pr, url: e.target.value }))} placeholder="Live URL"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                            </div>
-
-                            <div className="grid grid-cols-3 gap-3">
-                              <input value={newProj.tag} onChange={e => setNewProj(pr => ({ ...pr, tag: e.target.value }))} placeholder="Tag (e.g. Game · Arcade)"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                              <input value={newProj.icon} onChange={e => setNewProj(pr => ({ ...pr, icon: e.target.value }))} placeholder="Emoji Icon"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                              <input value={newProj.banner} onChange={e => setNewProj(pr => ({ ...pr, banner: e.target.value }))} placeholder="Banner Path (optional)"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                            </div>
-
-                            <textarea value={newProj.desc} onChange={e => setNewProj(pr => ({ ...pr, desc: e.target.value }))} placeholder="Short Description" rows={2}
-                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
-
-                            <div className="flex items-center gap-3">
-                              <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Accent Accent Color</label>
-                              <input type="color" value={newProj.accent} onChange={e => setNewProj(pr => ({ ...pr, accent: e.target.value }))}
-                                className="w-8 h-7 rounded cursor-pointer border border-borderColor bg-transparent" />
-                            </div>
-
-                            <div className="flex gap-2">
-                              <button onClick={addProject} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
-                                <Save size={11} /> Save Project
-                              </button>
-                              <button onClick={() => setAddMode(false)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Projects list */}
-                        <div className="space-y-3">
-                          {liveProjects.map(proj => (
-                            <div key={proj.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
-                              {editingId === proj.id ? (
-                                <div className="space-y-3">
-                                  <div className="grid grid-cols-2 gap-3">
-                                    <input value={editForm.name||''} onChange={e => setEditForm(fm => ({ ...fm, name: e.target.value }))} placeholder="Name"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                    <input value={editForm.url||''} onChange={e => setEditForm(fm => ({ ...fm, url: e.target.value }))} placeholder="Live URL"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                  </div>
-                                  <div className="grid grid-cols-3 gap-3">
-                                    <input value={editForm.tag||''} onChange={e => setEditForm(fm => ({ ...fm, tag: e.target.value }))} placeholder="Tag"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                    <input value={editForm.icon||''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                    <input value={editForm.banner||''} onChange={e => setEditForm(fm => ({ ...fm, banner: e.target.value }))} placeholder="Banner Path"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                  </div>
-                                  <textarea value={editForm.desc||''} onChange={e => setEditForm(fm => ({ ...fm, desc: e.target.value }))} placeholder="Description" rows={2}
-                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
-                                  <div className="flex items-center gap-3">
-                                    <label className="text-[10px] font-mono text-textMuted uppercase">Accent</label>
-                                    <input type="color" value={editForm.accent||'#EC4899'} onChange={e => setEditForm(fm => ({ ...fm, accent: e.target.value }))}
-                                      className="w-8 h-7 rounded cursor-pointer border border-borderColor bg-transparent" />
-                                  </div>
-                                  <div className="flex gap-2">
-                                    <button onClick={saveEditProject} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
-                                      <Save size={11} /> Save
-                                    </button>
-                                    <button onClick={() => setEditingId(null)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
-                                      Cancel
-                                    </button>
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex items-center justify-between gap-3">
-                                  <div className="flex items-center gap-3 min-w-0">
-                                    <span className="text-xl shrink-0">{proj.icon}</span>
-                                    <div className="min-w-0">
-                                      <p className="font-semibold text-sm text-textPrimary truncate">{proj.name}</p>
-                                      <p className="text-textMuted text-[10px] font-mono truncate">{proj.url}</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center gap-1 shrink-0">
-                                    <a href={proj.url} target="_blank" rel="noopener noreferrer"
-                                      className="p-1.5 text-textMuted hover:text-accent transition-colors"><Globe size={13} /></a>
-                                    <button onClick={() => startEditProject(proj)}
-                                      className="p-1.5 text-textMuted hover:text-accent transition-colors"><Pencil size={13} /></button>
-                                    <button onClick={() => deleteProject(proj.id)}
-                                      className="p-1.5 text-textMuted hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* ════ TAB: RESEARCH ════ */}
-                    {adminTab === 'research' && (
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono text-textMuted uppercase tracking-wider">
-                            {research.length} research topic{research.length !== 1 ? 's' : ''}
-                          </span>
-                          {!addMode && (
-                            <button onClick={() => { setAddMode(true); setEditingId(null); }}
-                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-accent text-white rounded-lg hover:bg-accent-light transition-colors">
-                              <Plus size={12} /> Add Item
-                            </button>
-                          )}
-                        </div>
-
-                        {/* Add research form */}
-                        {addMode && (
-                          <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
-                            <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Research Topic</h4>
-                            
-                            <div className="grid grid-cols-3 gap-3">
-                              <input value={newRes.title} onChange={e => setNewRes(r => ({ ...r, title: e.target.value }))} placeholder="Title"
-                                className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                              <input value={newRes.icon} onChange={e => setNewRes(r => ({ ...r, icon: e.target.value }))} placeholder="Icon"
-                                className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                            </div>
-
-                            <input value={newRes.link} onChange={e => setNewRes(r => ({ ...r, link: e.target.value }))} placeholder="Project / Paper Link (optional)"
-                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-
-                            <textarea value={newRes.desc} onChange={e => setNewRes(r => ({ ...r, desc: e.target.value }))} placeholder="Summary / Description" rows={2}
-                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
-
-                            <div className="flex gap-2">
-                              <button onClick={addResearch} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
-                                <Save size={11} /> Save Topic
-                              </button>
-                              <button onClick={() => setAddMode(false)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Research list */}
-                        <div className="space-y-3">
-                          {research.map(resItem => (
-                            <div key={resItem.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
-                              {editingId === resItem.id ? (
-                                <div className="space-y-3">
-                                  <div className="grid grid-cols-3 gap-3">
-                                    <input value={editForm.title||''} onChange={e => setEditForm(fm => ({ ...fm, title: e.target.value }))} placeholder="Title"
-                                      className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                    <input value={editForm.icon||''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
-                                      className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                  </div>
-                                  <input value={editForm.link||''} onChange={e => setEditForm(fm => ({ ...fm, link: e.target.value }))} placeholder="Link"
-                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
-                                  <textarea value={editForm.desc||''} onChange={e => setEditForm(fm => ({ ...fm, desc: e.target.value }))} placeholder="Description" rows={2}
-                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
-                                  <div className="flex gap-2">
-                                    <button onClick={saveEditResearch} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
-                                      <Save size={11} /> Save
-                                    </button>
-                                    <button onClick={() => setEditingId(null)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
-                                      Cancel
-                                    </button>
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="flex items-center justify-between gap-3">
-                                  <div className="flex items-center gap-3 min-w-0">
-                                    <span className="text-xl shrink-0">{resItem.icon}</span>
-                                    <div className="min-w-0">
-                                      <p className="font-semibold text-sm text-textPrimary truncate">{resItem.title}</p>
-                                      <p className="text-textMuted text-[10px] font-mono truncate">{resItem.desc}</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center gap-1 shrink-0">
-                                    {resItem.link && (
-                                      <a href={resItem.link} target="_blank" rel="noopener noreferrer"
-                                        className="p-1.5 text-textMuted hover:text-accent transition-colors"><LinkIcon size={13} /></a>
-                                    )}
-                                    <button onClick={() => startEditResearch(resItem)}
-                                      className="p-1.5 text-textMuted hover:text-accent transition-colors"><Pencil size={13} /></button>
-                                    <button onClick={() => deleteResearch(resItem.id)}
-                                      className="p-1.5 text-textMuted hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Reset button at the bottom of panel */}
-                    <div className="flex items-center justify-between pt-4 border-t border-borderColor">
-                      <p className="text-[10px] font-mono text-textMuted">
-                        Edits persist in your local browser cache.
-                      </p>
-                      <button onClick={resetToDefaults}
-                        className="inline-flex items-center gap-1.5 text-red-500 hover:text-red-600 transition-colors text-[10px] font-mono uppercase tracking-widest">
-                        <RefreshCw size={11} /> Reset Defaults
+                        {t.icon}
+                        {t.label}
                       </button>
+                    ))}
+                  </div>
+
+                  {/* ════ TAB: PROFILE ════ */}
+                  {adminTab === 'profile' && (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 bg-bgSurface p-4 rounded-xl">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden border border-borderColor shrink-0">
+                          <img src={profile.photo} alt="Avatar" className="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-sm text-textPrimary">{profile.name}</h4>
+                          <p className="text-xs text-textMuted">{profile.title}</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Full Name</label>
+                          <input value={profile.name} onChange={e => setProfile(p => ({ ...p, name: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Title / Role</label>
+                          <input value={profile.title} onChange={e => setProfile(p => ({ ...p, title: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Bio / Tagline</label>
+                        <textarea value={profile.bio} onChange={e => setProfile(p => ({ ...p, bio: e.target.value }))} rows={2}
+                          className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Photo Path / URL</label>
+                          <input value={profile.photo} onChange={e => setProfile(p => ({ ...p, photo: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Email Address</label>
+                          <input value={profile.email} onChange={e => setProfile(p => ({ ...p, email: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">GitHub Link</label>
+                          <input value={profile.github} onChange={e => setProfile(p => ({ ...p, github: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">LinkedIn Link</label>
+                          <input value={profile.linkedin} onChange={e => setProfile(p => ({ ...p, linkedin: e.target.value }))}
+                            className="w-full px-3 py-2 bg-bgSurface border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                        </div>
+                      </div>
                     </div>
+                  )}
+
+                  {/* ════ TAB: PROJECTS ════ */}
+                  {adminTab === 'projects' && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono text-textMuted uppercase tracking-wider">
+                          {liveProjects.length} live project{liveProjects.length !== 1 ? 's' : ''}
+                        </span>
+                        {!addMode && (
+                          <button onClick={() => { setAddMode(true); setEditingId(null); }}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-accent text-white rounded-lg hover:bg-accent-light transition-colors">
+                            <Plus size={12} /> Add Project
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Add project form */}
+                      {addMode && (
+                        <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
+                          <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Project</h4>
+
+                          <div className="grid grid-cols-2 gap-3">
+                            <input value={newProj.name} onChange={e => setNewProj(pr => ({ ...pr, name: e.target.value }))} placeholder="Project Name"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                            <input value={newProj.url} onChange={e => setNewProj(pr => ({ ...pr, url: e.target.value }))} placeholder="Live URL"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-3">
+                            <input value={newProj.tag} onChange={e => setNewProj(pr => ({ ...pr, tag: e.target.value }))} placeholder="Tag (e.g. Game · Arcade)"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                            <input value={newProj.icon} onChange={e => setNewProj(pr => ({ ...pr, icon: e.target.value }))} placeholder="Emoji Icon"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                            <input value={newProj.banner} onChange={e => setNewProj(pr => ({ ...pr, banner: e.target.value }))} placeholder="Banner Path (optional)"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                          </div>
+
+                          <textarea value={newProj.desc} onChange={e => setNewProj(pr => ({ ...pr, desc: e.target.value }))} placeholder="Short Description" rows={2}
+                            className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
+
+                          <div className="flex items-center gap-3">
+                            <label className="text-[10px] font-mono text-textMuted uppercase tracking-wider">Accent Accent Color</label>
+                            <input type="color" value={newProj.accent} onChange={e => setNewProj(pr => ({ ...pr, accent: e.target.value }))}
+                              className="w-8 h-7 rounded cursor-pointer border border-borderColor bg-transparent" />
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button onClick={addProject} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
+                              <Save size={11} /> Save Project
+                            </button>
+                            <button onClick={() => setAddMode(false)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Projects list */}
+                      <div className="space-y-3">
+                        {liveProjects.map(proj => (
+                          <div key={proj.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
+                            {editingId === proj.id ? (
+                              <div className="space-y-3">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <input value={editForm.name || ''} onChange={e => setEditForm(fm => ({ ...fm, name: e.target.value }))} placeholder="Name"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                  <input value={editForm.url || ''} onChange={e => setEditForm(fm => ({ ...fm, url: e.target.value }))} placeholder="Live URL"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                </div>
+                                <div className="grid grid-cols-3 gap-3">
+                                  <input value={editForm.tag || ''} onChange={e => setEditForm(fm => ({ ...fm, tag: e.target.value }))} placeholder="Tag"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                  <input value={editForm.icon || ''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                  <input value={editForm.banner || ''} onChange={e => setEditForm(fm => ({ ...fm, banner: e.target.value }))} placeholder="Banner Path"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                </div>
+                                <textarea value={editForm.desc || ''} onChange={e => setEditForm(fm => ({ ...fm, desc: e.target.value }))} placeholder="Description" rows={2}
+                                  className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
+                                <div className="flex items-center gap-3">
+                                  <label className="text-[10px] font-mono text-textMuted uppercase">Accent</label>
+                                  <input type="color" value={editForm.accent || '#EC4899'} onChange={e => setEditForm(fm => ({ ...fm, accent: e.target.value }))}
+                                    className="w-8 h-7 rounded cursor-pointer border border-borderColor bg-transparent" />
+                                </div>
+                                <div className="flex gap-2">
+                                  <button onClick={saveEditProject} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
+                                    <Save size={11} /> Save
+                                  </button>
+                                  <button onClick={() => setEditingId(null)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <span className="text-xl shrink-0">{proj.icon}</span>
+                                  <div className="min-w-0">
+                                    <p className="font-semibold text-sm text-textPrimary truncate">{proj.name}</p>
+                                    <p className="text-textMuted text-[10px] font-mono truncate">{proj.url}</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-1 shrink-0">
+                                  <a href={proj.url} target="_blank" rel="noopener noreferrer"
+                                    className="p-1.5 text-textMuted hover:text-accent transition-colors"><Globe size={13} /></a>
+                                  <button onClick={() => startEditProject(proj)}
+                                    className="p-1.5 text-textMuted hover:text-accent transition-colors"><Pencil size={13} /></button>
+                                  <button onClick={() => deleteProject(proj.id)}
+                                    className="p-1.5 text-textMuted hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ════ TAB: RESEARCH ════ */}
+                  {adminTab === 'research' && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono text-textMuted uppercase tracking-wider">
+                          {research.length} research topic{research.length !== 1 ? 's' : ''}
+                        </span>
+                        {!addMode && (
+                          <button onClick={() => { setAddMode(true); setEditingId(null); }}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-accent text-white rounded-lg hover:bg-accent-light transition-colors">
+                            <Plus size={12} /> Add Item
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Add research form */}
+                      {addMode && (
+                        <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
+                          <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Research Topic</h4>
+
+                          <div className="grid grid-cols-3 gap-3">
+                            <input value={newRes.title} onChange={e => setNewRes(r => ({ ...r, title: e.target.value }))} placeholder="Title"
+                              className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                            <input value={newRes.icon} onChange={e => setNewRes(r => ({ ...r, icon: e.target.value }))} placeholder="Icon"
+                              className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                          </div>
+
+                          <input value={newRes.link} onChange={e => setNewRes(r => ({ ...r, link: e.target.value }))} placeholder="Project / Paper Link (optional)"
+                            className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+
+                          <textarea value={newRes.desc} onChange={e => setNewRes(r => ({ ...r, desc: e.target.value }))} placeholder="Summary / Description" rows={2}
+                            className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
+
+                          <div className="flex gap-2">
+                            <button onClick={addResearch} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
+                              <Save size={11} /> Save Topic
+                            </button>
+                            <button onClick={() => setAddMode(false)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Research list */}
+                      <div className="space-y-3">
+                        {research.map(resItem => (
+                          <div key={resItem.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
+                            {editingId === resItem.id ? (
+                              <div className="space-y-3">
+                                <div className="grid grid-cols-3 gap-3">
+                                  <input value={editForm.title || ''} onChange={e => setEditForm(fm => ({ ...fm, title: e.target.value }))} placeholder="Title"
+                                    className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                  <input value={editForm.icon || ''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
+                                    className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                </div>
+                                <input value={editForm.link || ''} onChange={e => setEditForm(fm => ({ ...fm, link: e.target.value }))} placeholder="Link"
+                                  className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                <textarea value={editForm.desc || ''} onChange={e => setEditForm(fm => ({ ...fm, desc: e.target.value }))} placeholder="Description" rows={2}
+                                  className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent resize-none" />
+                                <div className="flex gap-2">
+                                  <button onClick={saveEditResearch} className="flex items-center gap-1 px-4 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent-light transition-colors">
+                                    <Save size={11} /> Save
+                                  </button>
+                                  <button onClick={() => setEditingId(null)} className="px-4 py-1.5 border border-borderColor text-xs text-textSecondary rounded-lg hover:bg-bgCard transition-colors">
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <span className="text-xl shrink-0">{resItem.icon}</span>
+                                  <div className="min-w-0">
+                                    <p className="font-semibold text-sm text-textPrimary truncate">{resItem.title}</p>
+                                    <p className="text-textMuted text-[10px] font-mono truncate">{resItem.desc}</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-1 shrink-0">
+                                  {resItem.link && (
+                                    <a href={resItem.link} target="_blank" rel="noopener noreferrer"
+                                      className="p-1.5 text-textMuted hover:text-accent transition-colors"><LinkIcon size={13} /></a>
+                                  )}
+                                  <button onClick={() => startEditResearch(resItem)}
+                                    className="p-1.5 text-textMuted hover:text-accent transition-colors"><Pencil size={13} /></button>
+                                  <button onClick={() => deleteResearch(resItem.id)}
+                                    className="p-1.5 text-textMuted hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Reset button at the bottom of panel */}
+                  <div className="flex items-center justify-between pt-4 border-t border-borderColor">
+                    <p className="text-[10px] font-mono text-textMuted">
+                      Edits persist in your local browser cache.
+                    </p>
+                    <button onClick={resetToDefaults}
+                      className="inline-flex items-center gap-1.5 text-red-500 hover:text-red-600 transition-colors text-[10px] font-mono uppercase tracking-widest">
+                      <RefreshCw size={11} /> Reset Defaults
+                    </button>
                   </div>
                 </div>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -1260,7 +1259,7 @@ export default function App() {
               transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
             >
               <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E]" style={{ clipPath: 'inset(0 50% 0 0)' }}>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
             </motion.div>
 
@@ -1276,7 +1275,7 @@ export default function App() {
               transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
             >
               <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E]" style={{ clipPath: 'inset(0 0 0 50%)' }}>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
             </motion.div>
           </>
