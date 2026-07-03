@@ -179,6 +179,8 @@ export default function App() {
 
   // Custom states for secret manage projects button and heart logo easter egg
   const [manageClicks, setManageClicks] = useState(0);
+  const [decoyClicks, setDecoyClicks] = useState(0);
+  const [passwordOpen, setPasswordOpen] = useState(false);
   const [heartBroken, setHeartBroken] = useState(false);
   const [heartPosition, setHeartPosition] = useState({ top: 0, left: 0 });
 
@@ -217,6 +219,7 @@ export default function App() {
     // Hashed value of 'prdip@2026'
     if (hashed === 'd3eb92a3d936a8d8e417c26dc63a023b93a0ddec32530a6ab1d0782ce7f80cb9') {
       setAdminAuth(true);
+      setPasswordOpen(false);
       setPassErr(false);
     } else {
       setPassErr(true);
@@ -225,11 +228,14 @@ export default function App() {
 
   const closeAdmin = () => {
     setAdminOpen(false);
+    setPasswordOpen(false);
     setAdminAuth(false);
     setAdminPass('');
     setPassErr(false);
     setEditingId(null);
     setAddMode(false);
+    setManageClicks(0);
+    setDecoyClicks(0);
   };
 
   // Projects CRUD
@@ -317,11 +323,11 @@ export default function App() {
               className="relative w-9 h-9 flex items-center justify-center cursor-pointer select-none"
             >
               {!heartBroken ? (
-                <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444] hover:scale-110 active:scale-95 transition-transform duration-200">
+                <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E] hover:scale-110 active:scale-95 transition-transform duration-200">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
               ) : (
-                <svg viewBox="0 0 24 24" className="w-9 h-9 stroke-[#EF4444]/25 fill-none stroke-2 stroke-dasharray-[4,4] opacity-50">
+                <svg viewBox="0 0 24 24" className="w-9 h-9 stroke-[#F43F5E]/25 fill-none stroke-2 stroke-dasharray-[4,4] opacity-50">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
               )}
@@ -816,33 +822,179 @@ export default function App() {
           ADMIN PANEL MODAL
       ═══════════════════════════════════════════════ */}
       <AnimatePresence>
+        {/* Modal 1: Decoy status screen */}
         {adminOpen && (
           <motion.div
-            key="admin-overlay"
+            key="decoy-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
               flex items-center justify-center p-4"
-            onClick={e => e.target === e.currentTarget && closeAdmin()}>
+            onClick={e => e.target === e.currentTarget && closeAdmin()}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden"
+            >
+              <div className="flex items-center justify-between px-5 py-3 border-b border-borderColor bg-bgSurface/40">
+                <div 
+                  onClick={() => {
+                    setDecoyClicks(prev => {
+                      const next = prev + 1;
+                      if (next >= 3) {
+                        setPasswordOpen(true);
+                        setAdminOpen(false);
+                        return 0;
+                      }
+                      return next;
+                    });
+                  }}
+                  className="flex items-center gap-2 cursor-pointer select-none active:text-accent group"
+                >
+                  <Lock size={12} className="text-textMuted group-active:text-accent transition-colors" />
+                  <span className="font-bold text-xs text-textSecondary uppercase tracking-wider group-active:text-accent transition-colors">Portfolio Manager</span>
+                </div>
+                <button onClick={closeAdmin} className="text-textMuted hover:text-accent transition-colors p-1">
+                  <X size={14} />
+                </button>
+              </div>
+
+              <div className="p-5 font-mono text-xs text-textSecondary space-y-4">
+                <div className="flex justify-between border-b border-borderColor/40 pb-2">
+                  <span className="text-[10px] text-textMuted">SYSTEM DIAGNOSTICS</span>
+                  <span className="text-emerald-500 font-semibold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    ONLINE
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-[10px] text-textMuted">ENV_BUILD</p>
+                    <p className="text-textPrimary font-semibold">v1.2.5-prod</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-textMuted">LOAD_TIME</p>
+                    <p className="text-textPrimary font-semibold">142ms</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-textMuted">STORAGE_ENGINE</p>
+                    <p className="text-textPrimary font-semibold">Cache-Indexed</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-textMuted">DISPATCH_QUE</p>
+                    <p className="text-textPrimary font-semibold">Ready</p>
+                  </div>
+                </div>
+                <div className="space-y-1.5 pt-2 border-t border-borderColor/40">
+                  <div className="flex justify-between text-[10px] text-textMuted">
+                    <span>CPU LOAD</span>
+                    <span>18.4%</span>
+                  </div>
+                  <div className="w-full bg-bgSurface h-2 rounded-full overflow-hidden">
+                    <div className="bg-accent/80 h-full rounded-full" style={{ width: '18.4%' }} />
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-[10px] text-textMuted">
+                    <span>INDEX_CACHE</span>
+                    <span>1.2 KB / 5.0 MB</span>
+                  </div>
+                  <div className="w-full bg-bgSurface h-2 rounded-full overflow-hidden">
+                    <div className="bg-accent-light/80 h-full rounded-full" style={{ width: '1%' }} />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Modal 2: Password verification prompter */}
+        {passwordOpen && (
+          <motion.div
+            key="password-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
+              flex items-center justify-center p-4"
+            onClick={e => e.target === e.currentTarget && closeAdmin()}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden"
+            >
+              <div className="flex items-center justify-between px-5 py-3 border-b border-borderColor bg-bgSurface/40">
+                <div className="flex items-center gap-2">
+                  <Lock size={12} className="text-accent" />
+                  <span className="font-bold text-xs text-textPrimary uppercase tracking-wider">Security Verification</span>
+                </div>
+                <button onClick={closeAdmin} className="text-textMuted hover:text-accent transition-colors p-1">
+                  <X size={14} />
+                </button>
+              </div>
+
+              <div className="p-5 space-y-4">
+                <p className="text-center text-xs font-mono text-textMuted tracking-wider uppercase">
+                  Verification Required
+                </p>
+                <div className="relative">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    value={adminPass}
+                    onChange={e => { setAdminPass(e.target.value); setPassErr(false); }}
+                    onKeyDown={e => e.key === 'Enter' && handleAdminLogin()}
+                    placeholder="Enter security key"
+                    className={`w-full px-4 py-2.5 pr-10 bg-bgSurface border rounded-lg
+                      font-mono text-sm text-textPrimary outline-none focus:border-accent transition-colors
+                      ${passErr ? 'border-red-500' : 'border-borderColor'}`}
+                  />
+                  <button onClick={() => setShowPass(s => !s)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-textMuted hover:text-accent transition-colors">
+                    {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                </div>
+                {passErr && <p className="text-red-500 text-[10px] text-center font-mono font-semibold">Invalid access token</p>}
+                <button onClick={handleAdminLogin}
+                  className="w-full py-2.5 bg-accent hover:bg-accent-light text-white font-semibold text-sm rounded-lg transition-colors shadow-sm font-mono text-xs uppercase tracking-wider"
+                >
+                  Verify Credentials
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Modal 3: Authenticated manager CRUD dashboard */}
+        {adminAuth && (
+          <motion.div
+            key="dashboard-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
+              flex items-center justify-center p-4"
+            onClick={e => e.target === e.currentTarget && closeAdmin()}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
               className="bg-bgCard border border-borderColor rounded-2xl shadow-xl
-                w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-
-              <div className="flex items-center justify-between px-6 py-4 border-b border-borderColor">
+                w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-borderColor bg-bgSurface/40">
                 <div className="flex items-center gap-2">
                   <Lock size={14} className="text-accent" />
-                  <span className="font-bold text-sm text-textPrimary">Portfolio Manager</span>
-                  {adminAuth && (
-                    <span className="text-[9px] font-mono text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/20
-                      px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      AUTHENTICATED
-                    </span>
-                  )}
+                  <span className="font-bold text-sm text-textPrimary">Portfolio Manager Dashboard</span>
+                  <span className="text-[9px] font-mono text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/20 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                    AUTHENTICATED
+                  </span>
                 </div>
                 <button onClick={closeAdmin} className="text-textMuted hover:text-accent transition-colors p-1">
                   <X size={16} />
@@ -850,38 +1002,9 @@ export default function App() {
               </div>
 
               <div className="px-6 py-6">
-                {!adminAuth ? (
-                  <div className="space-y-4 max-w-sm mx-auto py-4">
-                    <p className="text-center text-xs font-mono text-textMuted tracking-widest uppercase">
-                      Enter admin password
-                    </p>
-                    <div className="relative">
-                      <input
-                        type={showPass ? 'text' : 'password'}
-                        value={adminPass}
-                        onChange={e => { setAdminPass(e.target.value); setPassErr(false); }}
-                        onKeyDown={e => e.key === 'Enter' && handleAdminLogin()}
-                        placeholder="Password"
-                        className={`w-full px-4 py-3 pr-10 bg-bgSurface border rounded-lg
-                          font-mono text-sm text-textPrimary outline-none focus:border-accent transition-colors
-                          ${passErr ? 'border-red-500' : 'border-borderColor'}`}
-                      />
-                      <button onClick={() => setShowPass(s => !s)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-textMuted hover:text-accent transition-colors">
-                        {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
-                      </button>
-                    </div>
-                    {passErr && <p className="text-red-500 text-[10px] text-center font-mono font-semibold">Incorrect password</p>}
-                    <button onClick={handleAdminLogin}
-                      className="w-full py-3 bg-accent hover:bg-accent-light text-white font-semibold text-sm rounded-lg transition-colors shadow-sm">
-                      Unlock Manager
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    
-                    {/* Admin Tabs */}
-                    <div className="flex gap-1 p-1 bg-bgSurface rounded-xl">
+                <div className="space-y-6">
+                  {/* Admin Tabs */}
+                  <div className="flex gap-1 p-1 bg-bgSurface rounded-xl">
                       {[
                         { id: 'profile', label: 'Profile', icon: <User size={14} /> },
                         { id: 'projects', label: 'Projects', icon: <Globe size={14} /> },
@@ -1182,8 +1305,7 @@ export default function App() {
                       </button>
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
             </motion.div>
           </motion.div>
         )}
@@ -1204,7 +1326,7 @@ export default function App() {
               }}
               transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
             >
-              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444]" style={{ clipPath: 'inset(0 50% 0 0)' }}>
+              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E]" style={{ clipPath: 'inset(0 50% 0 0)' }}>
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
             </motion.div>
@@ -1220,7 +1342,7 @@ export default function App() {
               }}
               transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
             >
-              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444]" style={{ clipPath: 'inset(0 0 0 50%)' }}>
+              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#F43F5E]" style={{ clipPath: 'inset(0 0 0 50%)' }}>
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
             </motion.div>
