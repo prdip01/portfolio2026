@@ -6,6 +6,7 @@ import {
   Brain, Code2, Box, BookOpen, Zap, Users, Code, User, FlaskConical,
   Link as LinkIcon, Image, RefreshCw
 } from 'lucide-react';
+import portfolioData from './data.json';
 
 /* ─── Animation presets ─────────────────────────────────── */
 const fadeUp = {
@@ -20,93 +21,10 @@ const fadeIn = { ...fadeUp, initial: { opacity: 0, y: 0 } };
 const getScreenshot = (url) =>
   `https://image.thum.io/get/width/1200/crop/630/${url}`;
 
-/* ─── Default Data ──────────────────────────────────────── */
-const DEFAULT_PROFILE = {
-  name: 'Pradeep Kumar',
-  title: 'Data Scientist & Web Developer',
-  bio: 'Code. Create. Simplify. I build technology that makes everyday tasks easier.',
-  photo: '/photo.jpg',
-  github: 'https://github.com/prdip01',
-  linkedin: 'https://www.linkedin.com/in/pradeep-kumar-53a9502a6',
-  email: 'iamprdip160@gmail.com'
-};
-
-const DEFAULT_PROJECTS = [
-  {
-    id: 1,
-    name: 'Yatra OS',
-    desc: 'A smart travel planning OS — plan trips, track expenses & explore destinations.',
-    url: 'https://tripkaplaneer.netlify.app/',
-    accent: '#8B5CF6',
-    tag: 'Travel · Planning',
-    icon: '✈️',
-    banner: '/banners/yatra-os.png'
-  },
-  {
-    id: 2,
-    name: 'SSC CGL 2027 Tracker',
-    desc: 'Productivity tracker for SSC CGL aspirants — study logs, progress charts & analytics.',
-    url: 'https://cgltrackerbyprdip.netlify.app/',
-    accent: '#6366F1',
-    tag: 'Productivity · Exam Prep',
-    icon: '📊',
-    banner: '/banners/ssc-tracker.png'
-  },
-  {
-    id: 3,
-    name: 'Have It Flow',
-    desc: 'Monthly habit & progress hub — build streaks, visualise consistency and stay accountable.',
-    url: 'https://habittrracker.netlify.app/',
-    accent: '#10B981',
-    tag: 'Habits · Monthly Progress',
-    icon: '🌊',
-    banner: '/banners/habit-flow.png'
-  },
-  {
-    id: 4,
-    name: 'The Progress Planner',
-    desc: 'Goal-first planner to break big dreams into daily action — built for focus and clarity.',
-    url: 'https://progressplannerr.netlify.app/',
-    accent: '#F59E0B',
-    tag: 'Goals · Daily Planning',
-    icon: '🎯',
-    banner: '/banners/progress-planner.png'
-  },
-  {
-    id: 5,
-    name: 'Square Breaker',
-    desc: 'Classic brick-breaker arcade game built in vanilla JavaScript — break squares, score big.',
-    url: 'https://square-breaker.netlify.app/',
-    accent: '#EF4444',
-    tag: 'Game · Arcade',
-    icon: '🟥',
-    banner: '/banners/square-breaker.png'
-  },
-];
-
-const DEFAULT_RESEARCH = [
-  {
-    id: 1,
-    icon: '🧠',
-    title: 'DermAI: Skin Lesion Classification',
-    desc: 'A custom convolutional neural network achieving 93% accuracy on the HAM10000 skin cancer dataset.',
-    link: 'https://github.com/prdip01'
-  },
-  {
-    id: 2,
-    icon: '📝',
-    title: 'Low-resource NLP fine-tuning using LoRA',
-    desc: 'Explored Parameter-Efficient Fine-Tuning (PEFT) strategies for LLMs on compute-constrained devices.',
-    link: 'https://github.com/prdip01'
-  },
-  {
-    id: 3,
-    icon: '🩺',
-    title: 'PneumoNet: Automated Pediatric Pneumonia Detection',
-    desc: 'Transfer learning using ResNet50 on chest X-rays with Grad-CAM activation visualization.',
-    link: 'https://github.com/prdip01'
-  }
-];
+/* ─── Default Data from JSON ────────────────────────────── */
+const DEFAULT_PROFILE = portfolioData.profile;
+const DEFAULT_PROJECTS = portfolioData.projects;
+const DEFAULT_RESEARCH = portfolioData.research;
 
 const SKILLS = [
   { logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',        label: 'Python' },
@@ -200,17 +118,32 @@ export default function App() {
     } catch {}
   }, [isLight]);
 
-  /* ── Save content states to localStorage ── */
+  /* ── Save content states to localStorage & Disk ── */
+  const saveToDisk = async (updatedData) => {
+    try {
+      await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData)
+      });
+    } catch (err) {
+      console.warn('Failed to save to disk. This is normal if running in production.', err);
+    }
+  };
+
   useEffect(() => {
     try { localStorage.setItem('prdip_profile', JSON.stringify(profile)); } catch {}
+    saveToDisk({ profile, projects: liveProjects, research });
   }, [profile]);
 
   useEffect(() => {
     try { localStorage.setItem('prdip_live_projects', JSON.stringify(liveProjects)); } catch {}
+    saveToDisk({ profile, projects: liveProjects, research });
   }, [liveProjects]);
 
   useEffect(() => {
     try { localStorage.setItem('prdip_research', JSON.stringify(research)); } catch {}
+    saveToDisk({ profile, projects: liveProjects, research });
   }, [research]);
 
   /* ── Actions ── */
