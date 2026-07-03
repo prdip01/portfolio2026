@@ -6,7 +6,7 @@ A personal portfolio website built with **React + Vite + Tailwind CSS**, showcas
 
 ## 🚀 Live Demo
 
-> [https://prdip01.github.io/portfolio2026](https://prdip01.github.io/portfolio2026) *(deploy link — update when live)*
+> https://prradeepp.netlify.app/ *(deploy link — update when live)*
 
 ---
 
