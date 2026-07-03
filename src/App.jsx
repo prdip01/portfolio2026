@@ -462,12 +462,12 @@ export default function App() {
                 </a>
 
                 {/* Photo container */}
-                <div className="relative z-10 w-72 h-[360px] sm:w-[320px] sm:h-[400px] lg:w-[360px] lg:h-[460px] 
-                  rounded-2xl overflow-hidden border border-borderColor/80 shadow-md">
+                <div className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-[360px] lg:h-[360px] 
+                  rounded-full overflow-hidden border-4 border-borderColor/80 shadow-md">
                   <img
                     src={profile.photo || '/photo.jpg'}
                     alt={profile.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     style={{ objectPosition: 'center 15%' }}
                     onError={(e) => {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600";
@@ -667,90 +667,51 @@ export default function App() {
               <p className="text-textSecondary text-sm mt-2">Click any project to open the live site.</p>
             </motion.div>
 
-            {/* Banner grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Project grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {liveProjects.map((proj, i) => (
-                <motion.a
+                <motion.div
                   key={proj.id}
-                  href={proj.url}
-                  target="_blank" rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.07 }}
-                  className="banner-card group block touch-manipulation">
+                  className="bg-bgCard border border-borderColor/60 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-premium relative overflow-hidden transition-all duration-300 hover:border-borderColor hover:shadow-lg">
+                  
+                  {/* Glow circle behind icon */}
+                  <div className="absolute w-24 h-24 rounded-full blur-xl opacity-10 pointer-events-none"
+                    style={{ background: proj.accent }} />
 
-                  {/* ── Browser chrome bar ── */}
-                  <div className="browser-chrome px-4 py-2.5 flex items-center gap-3">
-                    <div className="flex gap-1.5 shrink-0">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
-                    </div>
-                    <div className="browser-url flex-1 rounded-md px-3 py-1 text-[11px] font-mono truncate">
-                      {proj.url}
-                    </div>
-                    <ExternalLink size={12} className="text-textMuted group-hover:text-accent transition-colors shrink-0" />
-                  </div>
+                  {/* Icon */}
+                  <div className="text-3xl mb-4 relative z-10">{proj.icon || '🚀'}</div>
 
-                  {/* ── Screenshot preview / Banner ── */}
-                  <div className="relative h-44 sm:h-52 overflow-hidden bg-bgSurface">
-                    {/* Gradient fallback always visible */}
-                    <div className="absolute inset-0 flex items-center justify-center"
-                      style={{ background: `linear-gradient(135deg, ${proj.accent}12 0%, ${proj.accent}25 100%)` }}>
-                      <span className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">
-                        {proj.icon}
-                      </span>
-                    </div>
-                    {/* Banner or Live screenshot */}
-                    {proj.banner ? (
-                      <img
-                        src={proj.banner}
-                        alt={`${proj.name} banner`}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover object-center
-                          group-hover:scale-105 transition-transform duration-700"
-                      />
-                    ) : (
-                      <img
-                        src={getScreenshot(proj.url)}
-                        alt={`${proj.name} preview`}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover object-top
-                          group-hover:scale-105 transition-transform duration-700"
-                        onError={e => { e.currentTarget.style.opacity = '0'; }}
-                      />
-                    )}
-                    {/* Subtle overlay on hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100
-                      transition-opacity duration-300"
-                      style={{ background: `${proj.accent}12` }} />
-                  </div>
+                  {/* Glowing Bracket Link */}
+                  <a
+                    href={proj.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bracket-link mb-4 z-10"
+                    style={{
+                      color: proj.accent,
+                      '--glow-color': proj.accent + '33'
+                    }}
+                  >
+                    {proj.name}
+                  </a>
 
-                  {/* ── Info footer ── */}
-                  <div className="p-5 flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2.5 flex-wrap mb-1.5">
-                        <span className="text-lg">{proj.icon}</span>
-                        <h3 className="font-bold text-textPrimary group-hover:text-accent
-                          transition-colors text-base">
-                          {proj.name}
-                        </h3>
-                        {proj.tag && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-md uppercase tracking-wider"
-                            style={{ color: proj.accent, background: proj.accent + '15', border: `1px solid ${proj.accent}33` }}>
-                            {proj.tag}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-textSecondary text-sm leading-snug line-clamp-2">{proj.desc}</p>
-                      <div className="mt-3 inline-flex items-center gap-1.5 text-accent text-sm font-semibold
-                        group-hover:gap-3 transition-all duration-200">
-                        Visit Live Site <ArrowUpRight size={14} />
-                      </div>
-                    </div>
-                  </div>
-                </motion.a>
+                  {/* Description */}
+                  <p className="text-textSecondary text-xs sm:text-sm max-w-sm mb-4 leading-relaxed relative z-10 min-h-[40px] flex items-center justify-center">
+                    {proj.desc}
+                  </p>
+
+                  {/* Tag */}
+                  {proj.tag && (
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded-md uppercase tracking-wider relative z-10"
+                      style={{ color: proj.accent, background: proj.accent + '12', border: `1px solid ${proj.accent}25` }}>
+                      {proj.tag}
+                    </span>
+                  )}
+                </motion.div>
               ))}
             </div>
 

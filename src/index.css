@@ -144,15 +144,47 @@ html:not(.light) {
 
 /* Premium Card Styles */
 .skill-card {
+  position: relative;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-premium);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.skill-card:hover::before {
+  opacity: 1;
 }
 .skill-card:hover {
   transform: translateY(-2px);
-  border-color: var(--accent);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 20px -10px var(--accent-light);
+  border-color: transparent;
+}
+.skill-card span {
+  transition: all 0.3s ease;
+}
+.skill-card:hover span {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px var(--accent-muted);
 }
 
 .project-card {
@@ -165,6 +197,58 @@ html:not(.light) {
   background-color: var(--bg-surface);
   border-color: var(--accent);
   transform: translateX(4px);
+}
+
+.bracket-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.5rem;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-shadow: 0 0 4px var(--glow-color, transparent);
+}
+
+.bracket-link::before,
+.bracket-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  border: 2px solid currentColor;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.6;
+}
+
+.bracket-link::before {
+  left: 0;
+  border-right: none;
+}
+
+.bracket-link::after {
+  right: 0;
+  border-left: none;
+}
+
+.bracket-link:hover::before {
+  transform: translateX(-4px);
+  opacity: 1;
+}
+
+.bracket-link:hover::after {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.bracket-link:hover {
+  text-shadow: 0 0 12px currentColor;
+  filter: drop-shadow(0 0 8px currentColor);
+  transform: scale(1.03);
 }
 
 .glass-card {
