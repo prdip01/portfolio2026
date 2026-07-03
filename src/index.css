@@ -358,3 +358,21 @@ html.light .glow-blob {
   transform: scale(1.15) rotate(6deg);
   filter: drop-shadow(0 0 8px var(--accent-light));
 }
+
+/* iOS Safari backdrop-filter prefix fallbacks */
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(4px);
+}
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(8px);
+}
+.backdrop-blur-lg {
+  -webkit-backdrop-filter: blur(16px);
+}
+.backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(24px);
+}
+.backdrop-blur-2xl {
+  -webkit-backdrop-filter: blur(40px);
+}
+

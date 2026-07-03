@@ -346,7 +346,7 @@ export default function App() {
       <main className="relative z-10">
 
         {/* ── HERO ── */}
-        <section id="home" className="min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-4 sm:px-8
+        <section id="home" className="min-h-[calc(100vh-64px)] min-h-[calc(100dvh-64px)] max-w-7xl mx-auto px-4 sm:px-8
           flex flex-col justify-center pt-10 pb-16">
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -762,14 +762,14 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
-              flex items-center justify-center p-4"
+              flex items-center justify-center p-4 cursor-pointer"
             onClick={e => e.target === e.currentTarget && closeAdmin()}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden"
+              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden cursor-default"
             >
               <div className="flex items-center justify-between px-5 py-3 border-b border-borderColor bg-bgSurface/40">
                 <div
@@ -851,14 +851,14 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
-              flex items-center justify-center p-4"
+              flex items-center justify-center p-4 cursor-pointer"
             onClick={e => e.target === e.currentTarget && closeAdmin()}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden"
+              className="bg-bgCard border border-borderColor rounded-2xl shadow-xl w-full max-w-sm overflow-hidden cursor-default"
             >
               <div className="flex items-center justify-between px-5 py-3 border-b border-borderColor bg-bgSurface/40">
                 <div className="flex items-center gap-2">
@@ -909,7 +909,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm
-              flex items-center justify-center p-4"
+              flex items-center justify-center p-4 cursor-pointer"
             onClick={e => e.target === e.currentTarget && closeAdmin()}
           >
             <motion.div
@@ -918,7 +918,7 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
               className="bg-bgCard border border-borderColor rounded-2xl shadow-xl
-                w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+                w-full max-w-2xl max-h-[90vh] max-h-[90dvh] overflow-y-auto cursor-default"
             >
               <div className="flex items-center justify-between px-6 py-4 border-b border-borderColor bg-bgSurface/40">
                 <div className="flex items-center gap-2">
