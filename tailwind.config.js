@@ -7,19 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Light pink-cream base
-        pinkBase: "#FDF0F5",
-        pinkLight: "#FFF6FB",
-        pinkSurface: "#FAE6F2",
-        pinkBorder: "#F0C4DB",
-        // Accent colors
-        brandMagenta: "#D91E8C",
-        brandViolet: "#5B21B6",
-        brandDeep: "#1A0A2E",
-        // Text
-        inkPrimary: "#12002E",
-        inkSecondary: "#6B5A7A",
-        inkMuted: "#A890B8",
+        bgBase: "var(--bg-base)",
+        bgCard: "var(--bg-card)",
+        bgSurface: "var(--bg-surface)",
+        borderColor: "var(--border-color)",
+        textPrimary: "var(--text-primary)",
+        textSecondary: "var(--text-secondary)",
+        textMuted: "var(--text-muted)",
+        accent: "var(--accent)",
+        accentLight: "var(--accent-light)",
+        accentMuted: "var(--accent-muted)",
+        accentBorder: "var(--accent-border)",
       },
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
