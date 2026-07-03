@@ -51,11 +51,11 @@
     },
     {
       "id": 5,
-      "name": "Square Breaker",
-      "desc": "Classic brick-breaker arcade game built in vanilla JavaScript — break squares, score big.",
-      "url": "https://square-breaker.netlify.app/",
-      "accent": "#EF4444",
-      "tag": "Game · Arcade",
+      "name": "Pra - Calender",
+      "desc": "The brand new projector of Pro Calendar with Pro features. Must try it. ",
+      "url": "https://pracalendar.netlify.app/",
+      "accent": "#ff0f0f",
+      "tag": "NEW  # PRO",
       "icon": "🟥",
       "banner": "/banners/square-breaker.png"
     }
@@ -73,13 +73,6 @@
       "icon": "📝",
       "title": "Low-resource NLP fine-tuning using LoRA",
       "desc": "Explored Parameter-Efficient Fine-Tuning (PEFT) strategies for LLMs on compute-constrained devices.",
-      "link": "https://github.com/prdip01"
-    },
-    {
-      "id": 3,
-      "icon": "🩺",
-      "title": "PneumoNet: Automated Pediatric Pneumonia Detection",
-      "desc": "Transfer learning using ResNet50 on chest X-rays with Grad-CAM activation visualization.",
       "link": "https://github.com/prdip01"
     }
   ]
