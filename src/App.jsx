@@ -177,7 +177,18 @@ export default function App() {
   // Research form templates
   const [newRes, setNewRes] = useState({ title: '', desc: '', link: '', icon: '🔬' });
 
-  const ADMIN_PASSWORD = 'prdip@2026';
+  // Custom states for secret manage projects button and heart logo easter egg
+  const [manageClicks, setManageClicks] = useState(0);
+  const [heartBroken, setHeartBroken] = useState(false);
+  const [heartPosition, setHeartPosition] = useState({ top: 0, left: 0 });
+
+  // SHA-256 Client-side hashing helper
+  const sha256 = async (string) => {
+    const utf8 = new TextEncoder().encode(string);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  };
 
   /* ── Theme toggle effect ── */
   useEffect(() => {
@@ -201,8 +212,10 @@ export default function App() {
   }, [research]);
 
   /* ── Actions ── */
-  const handleAdminLogin = () => {
-    if (adminPass === ADMIN_PASSWORD) {
+  const handleAdminLogin = async () => {
+    const hashed = await sha256(adminPass);
+    // Hashed value of 'prdip@2026'
+    if (hashed === 'd3eb92a3d936a8d8e417c26dc63a023b93a0ddec32530a6ab1d0782ce7f80cb9') {
       setAdminAuth(true);
       setPassErr(false);
     } else {
@@ -293,15 +306,30 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-accent to-accent-light flex items-center justify-center
-              text-white font-bold text-sm tracking-wider shadow-md group-hover:scale-105 transition-transform duration-300">
-              PK
+          <div className="flex items-center gap-3">
+            <div 
+              onClick={(e) => {
+                if (heartBroken) return;
+                const rect = e.currentTarget.getBoundingClientRect();
+                setHeartPosition({ top: rect.top, left: rect.left });
+                setHeartBroken(true);
+              }}
+              className="relative w-9 h-9 flex items-center justify-center cursor-pointer select-none"
+            >
+              {!heartBroken ? (
+                <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444] hover:scale-110 active:scale-95 transition-transform duration-200">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" className="w-9 h-9 stroke-[#EF4444]/25 fill-none stroke-2 stroke-dasharray-[4,4] opacity-50">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              )}
             </div>
-            <span className="hidden sm:block font-semibold text-textPrimary text-sm transition-colors duration-300">
+            <span className="hidden sm:block font-semibold text-textPrimary text-sm transition-colors duration-300 select-none">
               {profile.name}
             </span>
-          </a>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -473,13 +501,6 @@ export default function App() {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600";
                     }}
                   />
-                </div>
-
-                {/* Open to Work badge — bottom left */}
-                <div className="absolute -bottom-3 -left-3 z-20 bg-bgCard border border-borderColor
-                  rounded-xl px-3 py-2 flex items-center gap-2 shadow-sm">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Open to Work</span>
                 </div>
               </motion.div>
             </div>
@@ -718,9 +739,19 @@ export default function App() {
             {/* Admin trigger */}
             <div className="flex justify-end mt-8">
               <button
-                onClick={() => setAdminOpen(true)}
+                onClick={() => {
+                  setManageClicks(prev => {
+                    const next = prev + 1;
+                    if (next >= 3) {
+                      setAdminOpen(true);
+                      return 0;
+                    }
+                    return next;
+                  });
+                }}
                 className="inline-flex items-center gap-1.5 text-textMuted hover:text-accent transition-colors
-                  text-[10px] font-mono tracking-widest uppercase">
+                  text-[10px] font-mono tracking-widest uppercase select-none"
+              >
                 <Settings size={10} /> manage projects
               </button>
             </div>
@@ -1155,6 +1186,45 @@ export default function App() {
               </div>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Falling broken heart easter egg */}
+      <AnimatePresence>
+        {heartBroken && (
+          <>
+            {/* Left Half of Heart */}
+            <motion.div
+              className="fixed z-[9999] pointer-events-none"
+              initial={{ top: heartPosition.top, left: heartPosition.left }}
+              animate={{
+                x: -120,
+                y: window.innerHeight + 100,
+                rotate: -120
+              }}
+              transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
+            >
+              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444]" style={{ clipPath: 'inset(0 50% 0 0)' }}>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </motion.div>
+
+            {/* Right Half of Heart */}
+            <motion.div
+              className="fixed z-[9999] pointer-events-none"
+              initial={{ top: heartPosition.top, left: heartPosition.left }}
+              animate={{
+                x: 120,
+                y: window.innerHeight + 100,
+                rotate: 120
+              }}
+              transition={{ duration: 1.8, ease: [0.36, 0, 0.66, -0.4] }}
+            >
+              <svg viewBox="0 0 24 24" className="w-9 h-9 fill-[#EF4444]" style={{ clipPath: 'inset(0 0 0 50%)' }}>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

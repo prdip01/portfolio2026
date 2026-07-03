@@ -349,3 +349,12 @@ html.light .glow-blob {
 .nav-link:hover::after {
   width: 100%;
 }
+
+/* Skill logo micro-animations */
+.skill-card img {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-card:hover img {
+  transform: scale(1.15) rotate(6deg);
+  filter: drop-shadow(0 0 8px var(--accent-light));
+}
