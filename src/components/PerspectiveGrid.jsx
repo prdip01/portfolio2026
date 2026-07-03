@@ -28,8 +28,19 @@ export default function PerspectiveGrid() {
       };
     };
 
+    const onTouch = (e) => {
+      if (e.touches.length > 0) {
+        mouseRef.current = {
+          x: e.touches[0].clientX / window.innerWidth,
+          y: e.touches[0].clientY / window.innerHeight,
+        };
+      }
+    };
+
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouse);
+    window.addEventListener('touchstart', onTouch, { passive: true });
+    window.addEventListener('touchmove', onTouch, { passive: true });
     resize();
 
     const draw = () => {
@@ -114,6 +125,8 @@ export default function PerspectiveGrid() {
     return () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouse);
+      window.removeEventListener('touchstart', onTouch);
+      window.removeEventListener('touchmove', onTouch);
       cancelAnimationFrame(raf);
     };
   }, []);

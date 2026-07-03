@@ -321,7 +321,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             className="fixed inset-0 top-16 z-40 backdrop-blur-2xl
-              flex flex-col px-8 py-10 gap-6 md:hidden"
+              flex flex-col px-8 py-10 gap-6 md:hidden overflow-y-auto"
             style={{ background: 'var(--nav-bg)' }}>
             {navLinks.map(l => (
               <a key={l.label} href={l.href}
@@ -564,7 +564,7 @@ export default function App() {
                   AI, Machine Learning pipelines, and full-stack web development.
                 </p>
               </div>
-              <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 shrink-0">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-3 sm:grid-cols-1 gap-4 shrink-0 w-full sm:w-auto">
                 {[['10+', 'Live Apps'], ['02', 'Internships'], ['1', ' Ai & ML Training']].map(([n, l]) => (
                   <div key={l} className="glass-card rounded-xl p-4 text-center sm:text-left">
                     <div className="text-2xl font-bold text-accent">{n}</div>
@@ -629,26 +629,26 @@ export default function App() {
             {/* Project grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {liveProjects.map((proj, i) => (
-                <motion.div
+                <motion.a
                   key={proj.id}
+                  href={proj.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.07 }}
-                  className="bg-bgCard border border-borderColor/60 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-premium relative overflow-hidden transition-all duration-300 hover:border-borderColor hover:shadow-lg">
+                  className="bg-bgCard border border-borderColor/60 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-premium relative overflow-hidden transition-all duration-300 hover:border-accent hover:-translate-y-1 hover:shadow-lg block cursor-pointer group touch-manipulation">
 
                   {/* Glow circle behind icon */}
                   <div className="absolute w-24 h-24 rounded-full blur-xl opacity-10 pointer-events-none"
                     style={{ background: proj.accent }} />
 
                   {/* Icon */}
-                  <div className="text-3xl mb-4 relative z-10">{proj.icon || '🚀'}</div>
+                  <div className="text-3xl mb-4 relative z-10 group-hover:scale-110 transition-transform duration-300">{proj.icon || '🚀'}</div>
 
-                  {/* Glowing Bracket Link */}
-                  <a
-                    href={proj.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  {/* Glowing Bracket Link (rendered as span to avoid nested <a> tags) */}
+                  <span
                     className="bracket-link mb-4 z-10"
                     style={{
                       color: proj.accent,
@@ -656,7 +656,7 @@ export default function App() {
                     }}
                   >
                     {proj.name}
-                  </a>
+                  </span>
 
                   {/* Description */}
                   <p className="text-textSecondary text-xs sm:text-sm max-w-sm mb-4 leading-relaxed relative z-10 min-h-[40px] flex items-center justify-center">
@@ -670,7 +670,7 @@ export default function App() {
                       {proj.tag}
                     </span>
                   )}
-                </motion.div>
+                </motion.a>
               ))}
             </div>
 
@@ -1033,14 +1033,14 @@ export default function App() {
                         <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
                           <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Project</h4>
 
-                          <div className="grid grid-cols-2 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <input value={newProj.name} onChange={e => setNewProj(pr => ({ ...pr, name: e.target.value }))} placeholder="Project Name"
                               className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                             <input value={newProj.url} onChange={e => setNewProj(pr => ({ ...pr, url: e.target.value }))} placeholder="Live URL"
                               className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                           </div>
 
-                          <div className="grid grid-cols-3 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <input value={newProj.tag} onChange={e => setNewProj(pr => ({ ...pr, tag: e.target.value }))} placeholder="Tag (e.g. Game · Arcade)"
                               className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                             <input value={newProj.icon} onChange={e => setNewProj(pr => ({ ...pr, icon: e.target.value }))} placeholder="Emoji Icon"
@@ -1075,13 +1075,13 @@ export default function App() {
                           <div key={proj.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
                             {editingId === proj.id ? (
                               <div className="space-y-3">
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                   <input value={editForm.name || ''} onChange={e => setEditForm(fm => ({ ...fm, name: e.target.value }))} placeholder="Name"
                                     className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                                   <input value={editForm.url || ''} onChange={e => setEditForm(fm => ({ ...fm, url: e.target.value }))} placeholder="Live URL"
                                     className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                                 </div>
-                                <div className="grid grid-cols-3 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                   <input value={editForm.tag || ''} onChange={e => setEditForm(fm => ({ ...fm, tag: e.target.value }))} placeholder="Tag"
                                     className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                                   <input value={editForm.icon || ''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
@@ -1150,9 +1150,9 @@ export default function App() {
                         <div className="border border-borderColor bg-bgSurface rounded-xl p-4 space-y-3">
                           <h4 className="text-xs font-mono font-bold text-accent uppercase tracking-wider">New Research Topic</h4>
 
-                          <div className="grid grid-cols-3 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <input value={newRes.title} onChange={e => setNewRes(r => ({ ...r, title: e.target.value }))} placeholder="Title"
-                              className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                              className="sm:col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                             <input value={newRes.icon} onChange={e => setNewRes(r => ({ ...r, icon: e.target.value }))} placeholder="Icon"
                               className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                           </div>
@@ -1180,9 +1180,9 @@ export default function App() {
                           <div key={resItem.id} className="border border-borderColor bg-bgSurface/50 rounded-xl p-4 space-y-3">
                             {editingId === resItem.id ? (
                               <div className="space-y-3">
-                                <div className="grid grid-cols-3 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                   <input value={editForm.title || ''} onChange={e => setEditForm(fm => ({ ...fm, title: e.target.value }))} placeholder="Title"
-                                    className="col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
+                                    className="sm:col-span-2 w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                                   <input value={editForm.icon || ''} onChange={e => setEditForm(fm => ({ ...fm, icon: e.target.value }))} placeholder="Icon"
                                     className="w-full px-3 py-2 bg-bgCard border border-borderColor rounded-lg text-xs text-textPrimary outline-none focus:border-accent" />
                                 </div>
